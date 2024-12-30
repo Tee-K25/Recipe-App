@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import useFetch from "../data-fetching";
 import { useNavigate } from "react-router-dom";
+import searchQueries from "../data-fetching";
 
 export const GlobalContext = createContext(null);
 const GlobalState = ({ children }) => {
@@ -12,6 +13,29 @@ const GlobalState = ({ children }) => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [recipeDetails, setDetails] = useState(null);
   const [favoriteList, setFavoriteList] = useState([]);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [filteredQuery, setFilteredQuery] = useState([]);
+
+  function handleChange(event) {
+    const typed = event.target.value;
+    setSearchParam(typed);
+    suggest(searchQueries, typed);
+  }
+
+  // function to compare and filter typed and query list
+  function suggest(queryList, chars) {
+    const refinedChars = chars.toLowerCase();
+    if (refinedChars.length > 0) {
+      const filteredData = queryList.filter((item) => {
+        return item.toLowerCase().indexOf(refinedChars) > -1;
+      });
+      setShowDropDown(true);
+      setFilteredQuery(filteredData);
+    } else {
+      setShowDropDown(false);
+    }
+    // console.log("suggestions:", filteredQuery);
+  }
 
   function handleSubmit(event = null) {
     event.preventDefault();
@@ -112,6 +136,10 @@ const GlobalState = ({ children }) => {
         handleFavorite,
         removeFavorite,
         randomRecipe,
+        handleChange,
+        showDropDown,
+        setShowDropDown,
+        filteredQuery,
       }}
     >
       {children}

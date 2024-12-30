@@ -1,9 +1,23 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { GlobalContext } from "../context";
+import Suggestions from "../suggestions";
 const NavBar = () => {
-  const { searchParam, setSearchParam, handleSubmit } =
-    useContext(GlobalContext);
+  const {
+    searchParam,
+    setSearchParam,
+    handleSubmit,
+    handleChange,
+    showDropDown,
+    setShowDropDown,
+    filteredQuery,
+  } = useContext(GlobalContext);
+
+  // function to select suggested
+  function handleClick(e) {
+    setSearchParam(e.target.innerText);
+    setShowDropDown(false);
+  }
 
   return (
     <nav className="grid grid-cols-3 px-8 py-4  bg-brand1-light ">
@@ -62,15 +76,24 @@ const NavBar = () => {
         src="./assets/icons8-search-64.png"
         alt=""
       /> */}
-      <form onSubmit={handleSubmit} className="justify-self-end ">
-        <input
-          type="text"
-          placeholder="Search recipe..."
-          className="w-96 bg-white/75 p-3 px-8 rounded-full outline-none  shadow-lg shadow-red-100 focus:shadow-red-200 "
-          value={searchParam}
-          onChange={(event) => setSearchParam(event.target.value)}
-        />
-      </form>
+      <div className="relative justify-self-end">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search recipe..."
+            className="w-96 bg-white/75 p-3 px-8 rounded-full outline-none  shadow-lg shadow-red-100 focus:shadow-red-200 "
+            value={searchParam}
+            onChange={handleChange}
+          />
+        </form>
+        <div className="absolute top-[100%] w-full flex justify-center ">
+          {showDropDown ? (
+            <Suggestions data={filteredQuery} handleClick={handleClick} />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
     </nav>
   );
 };
