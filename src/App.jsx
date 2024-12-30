@@ -6,9 +6,13 @@ import Recipes from "./pages/recipes";
 import Details from "./pages/details";
 import Favorites from "./pages/favorites";
 import Testing from "./components/test";
+import bg from "./newbg.jpg";
 function App() {
   return (
-    <div className="min-h-screen bg-[url('./assets/newbg.jpg')] h-screen w-full bg-cover bg-center">
+    <div
+      className="min-h-screen  h-screen w-full bg-cover bg-center"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>

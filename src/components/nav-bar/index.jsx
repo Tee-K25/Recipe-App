@@ -8,28 +8,53 @@ const NavBar = () => {
   return (
     <nav className="grid grid-cols-3 px-8 py-4  bg-brand1-light ">
       <img
-        src="./assets/icons8-cooking-book-50.png"
+        src="./assets/icons8-cooking-50.png"
         className="w-10 h-10 cursor-pointer"
         alt="recipe icon"
       />
       <ul className="flex gap-10 justify-center items-center font-poppins text-lg text-black font-normal">
-        <NavLink to={"/"}>
-          <li className="relative py-1  cursor-pointer group ">
-            Home
-            <span className="absolute left-1/2 bottom-0 h-[2px] w-0 bg-brand1-dark transition-all duration-300 transform -translate-x-1/2 group-hover:w-full"></span>
-          </li>
+        <NavLink to={"/"} className="relative py-1  cursor-pointer group">
+          {({ isActive }) => (
+            <li>
+              Home
+              <span
+                className={`absolute left-1/2 bottom-0 h-[2px] bg-brand1-dark transition-all duration-300 transform -translate-x-1/2 ${
+                  isActive ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              ></span>
+            </li>
+          )}
         </NavLink>
-        <NavLink to={"/recipes"}>
-          <li className="relative py-1  cursor-pointer group">
-            Recipes
-            <span className="absolute left-1/2 bottom-0 h-[2px] w-0 bg-brand1-dark transition-all duration-300 transform -translate-x-1/2 group-hover:w-full"></span>
-          </li>
+        <NavLink
+          to={"/recipes"}
+          className="relative py-1  cursor-pointer group"
+        >
+          {({ isActive }) => (
+            <li>
+              Recipes
+              <span
+                className={`absolute left-1/2 bottom-0 h-[2px] bg-brand1-dark transition-all duration-300 transform -translate-x-1/2 ${
+                  isActive ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              ></span>
+            </li>
+          )}
         </NavLink>
-        <NavLink to={"/favorites"}>
-          <li className="relative py-1 cursor-pointer group">
-            Favorites
-            <span className="absolute left-1/2 bottom-0 h-[2px] w-0 bg-brand1-dark transition-all duration-300 transform -translate-x-1/2 group-hover:w-full"></span>
-          </li>
+
+        <NavLink
+          to={"/favorites"}
+          className="relative py-1  cursor-pointer group"
+        >
+          {({ isActive }) => (
+            <li>
+              Favorites
+              <span
+                className={`absolute left-1/2 bottom-0 h-[2px] bg-brand1-dark transition-all duration-300 transform -translate-x-1/2 ${
+                  isActive ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              ></span>
+            </li>
+          )}
         </NavLink>
       </ul>
       {/* <img

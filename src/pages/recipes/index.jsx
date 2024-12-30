@@ -14,6 +14,11 @@ const Recipes = () => {
         recipeList?.recipes.map((item, index) => (
           <RecipeCard key={index} item={item} />
         ))}
+      {!loading && !errorMsg && !recipeList && (
+        <div className="flex justify-center py-11 text-center  tracking-wider text-5xl font-cartoon font-bold  text-brand1-dark">
+          <h3>Search or browse a recipe</h3>
+        </div>
+      )}
     </main>
   );
 };
